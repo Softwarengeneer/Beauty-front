@@ -1,0 +1,35 @@
+<form [formGroup]="beautyForm" novalidate>
+  <p>Редактирование продукта</p>
+  <mat-icon (click)="closeDialog()" class="dialog__close-icon cursor pointer">clear</mat-icon>
+  <mat-form-field>
+    <mat-label>Название товара</mat-label>
+    <input matInput formControlName="productName" readonly>
+  </mat-form-field>
+  <label>Необходимо выплатить сумму: {{ (this.beauty.beautySum / 0.9) | number:2}} pублей</label>
+  <mat-form-field style="margin: 16px 0 64px 0">
+    <mat-label>Сумма для выплаты клиенту</mat-label>
+    <input matInput formControlName="payment" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="beautyForm.get('payment').hasError('required')">
+      Поле обязательно для заполнения
+    </mat-error>
+    <mat-error class="error-message" *ngIf="beautyForm.get('payment').hasError('pattern')
+    && (beautyForm.get('payment').dirty || beautyForm.get('payment').touched)">
+      Для ввода суммы используйте только числа
+    </mat-error>
+<!--    <mat-error class="error-message" *ngIf="beautyForm.get('payment').hasError('min')-->
+<!--    && (beautyForm.get('payment').dirty || beautyForm.get('payment').touched)">-->
+<!--      Сумма выплаты не может быть меньше 5% от цены товара c учетом комиссии сервиса: {{this.beauty.beautySum / 0.9}} рублей-->
+<!--    </mat-error>-->
+  </mat-form-field>
+  <mat-checkbox formControlName="isPaid" labelPosition='after'
+                class="dialog-checkbox">
+    Подтверждение оплаты товара клиентом
+  </mat-checkbox>
+  <mat-checkbox formControlName="isOrderCompleted" labelPosition='after'
+                class="dialog-checkbox">
+    Подтверждение отсутствия возврата товара
+  </mat-checkbox>
+  <div class="dialog__actions">
+    <button mat-button [disabled]="beautyForm.invalid" (click)="onBeautyUpdate()" class="btn cursor pointer">Изменить</button>
+  </div>
+</form>

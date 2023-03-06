@@ -1,0 +1,37 @@
+.logout-btn {
+  position: sticky;
+  left: 98%;
+  margin-top: 16px;
+  background: #FFFFFF;
+  color: black;
+}
+
+.login {
+  position: absolute;
+  right: 80px;
+  top: 16px;
+  color: black;
+}
+
+.balance {
+  position: absolute;
+  left: 80px;
+  top: 16px;
+  color: black;
+}
+
+.process-btn {
+  position: absolute;
+  left: 150px;
+  top: 16px;
+}
+
+.main-page {
+  &__polygon {
+    display: block;
+    z-index: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+  }
+}

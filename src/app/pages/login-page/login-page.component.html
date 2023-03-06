@@ -1,0 +1,89 @@
+<div class="auth-page">
+  <div class="auth-page__polygon">
+    <svg height="250" width="1000">
+      <polygon points="1000,0 1000,250 0,250" fill="#FFFFFF"></polygon>
+    </svg>
+  </div>
+  <mat-card class="auth-page__form-container">
+    <p class="auth-page__title">{{(isLoginPage) ? 'Вход'
+      : 'Регистрация'}}</p>
+    <form [formGroup]="authForm" novalidate class="form-container__auth-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Логин</mat-label>
+        <input matInput formControlName="login" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="authForm.get('login').hasError('required')">
+          Поле обязательно для заполнения
+        </mat-error>
+        <mat-hint *ngIf="!isLoginPage && isLoginAlreadyExists  && authForm.get('login').valid"
+                  class="form-container__auth-form_error">
+          Пользователь с таким логином уже существует
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="auth-form__password">
+        <mat-label>Пароль</mat-label>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" [errorStateMatcher]="matcher">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="authForm.get('password').hasError('required')">
+          Поле обязательно для заполнения
+        </mat-error>
+        <mat-hint *ngIf=" isLoginPage && isAuthenticationError && authForm.get('password').valid"
+                  class="form-container__auth-form_error">
+          Ошибка аутентификации.
+        </mat-hint>
+      </mat-form-field>
+    </form>
+    <mat-form-field *ngIf="!isLoginPage">
+      <mat-label>Кто вы? </mat-label>
+      <mat-select [(ngModel)]="selectedRole">
+        <mat-option *ngFor="let role of roles" [value]="role.value">
+          {{role.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form *ngIf="!isLoginPage && selectedRole === 'ROLE_CLIENT'" [formGroup]="clientForm" novalidate class="form-container__auth-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Имя</mat-label>
+        <input matInput formControlName="firstName" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="clientForm.get('firstName').hasError('required')">
+          Поле обязательно для заполнения
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Фамилия</mat-label>
+        <input matInput formControlName="lastName" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="clientForm.get('lastName').hasError('required')">
+          Поле обязательно для заполнения
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <form *ngIf="!isLoginPage && selectedRole === 'ROLE_SHOP'" [formGroup]="shopForm" novalidate class="form-container__auth-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Название магазина</mat-label>
+        <input matInput formControlName="name" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="shopForm.get('name').hasError('required')">
+          Поле обязательно для заполнения
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <button mat-button *ngIf="isLoginPage" (click)="authenticate()" [disabled]="authForm.invalid"
+            class="auth-form__login-button">
+      Войти
+    </button>
+    <button *ngIf="isLoginPage" (click)="goToRegistration()"
+            class="auth-page__go-to-registration-button cursor pointer">
+      Зарегистрироваться!
+    </button>
+    <button mat-button *ngIf="!isLoginPage" (click)="registration()" [disabled]="authForm.invalid || (clientForm.invalid && selectedRole === 'ROLE_CLIENT')
+    || (shopForm.invalid && selectedRole === 'ROLE_SHOP')"
+            class="auth-form__registration-button">
+      Создать аккаунт
+    </button>
+    <button *ngIf="!isLoginPage" (click)="goToLogIn()"
+            class="auth-page__back-to-login-button cursor pointer">
+      Уже есть аккаунт? Войти
+    </button>
+  </mat-card>
+</div>

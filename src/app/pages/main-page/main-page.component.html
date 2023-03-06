@@ -1,0 +1,14 @@
+<div class="main-page">
+  <div class="main-page__polygon">
+    <svg height="250" width="1000">
+      <polygon points="1000,0 1000,250 0,250" fill="#FFFFFF"></polygon>
+    </svg>
+  </div>
+  <label class="login">{{userLogin}}</label>
+  <label *ngIf="selectedRole === 'ROLE_CLIENT'" class="balance">{{'Баланс:' + clientBalance + ' руб'}}</label>
+  <button mat-button (click)="processBeauty()" *ngIf="selectedRole === 'ROLE_ADMIN'" class="process-btn">Запустить расчет стоимости</button>
+  <mat-icon (click)="logout()" class="logout-btn cursor pointer">exit_to_app</mat-icon>
+  <app-admin-page [beautyChange]="beautyChange" *ngIf="selectedRole === 'ROLE_ADMIN'"></app-admin-page>
+  <app-client-page *ngIf="selectedRole === 'ROLE_CLIENT'"></app-client-page>
+  <app-shop-page *ngIf="selectedRole === 'ROLE_SHOP'"></app-shop-page>
+</div>

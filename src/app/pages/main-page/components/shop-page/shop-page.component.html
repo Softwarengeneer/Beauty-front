@@ -1,0 +1,61 @@
+<div class="shop-page">
+  <table mat-table #table [dataSource]="beauty"
+         class="mat-table-style">
+
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef>Наименование товара</th>
+      <td mat-cell *matCellDef="let element">{{element.productName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="productPrice">
+      <th mat-header-cell *matHeaderCellDef>Цена</th>
+      <td mat-cell *matCellDef="let element">{{element.productPrice}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="creationDate">
+      <th mat-header-cell *matHeaderCellDef>Дата совершения покупки</th>
+      <td mat-cell *matCellDef="let element">{{element.creationDate.substring(0, 10)}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Статус</th>
+      <td mat-cell *matCellDef="let element">{{beautyService.statusMap.get(element.status)}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="isPaid">
+      <th mat-header-cell *matHeaderCellDef>Оплачен ли заказ клиентом?</th>
+      <td mat-cell *matCellDef="let element"><mat-icon>{{element.isPaid ? 'done' : 'clear'}}</mat-icon></td>
+    </ng-container>
+
+    <ng-container matColumnDef="isOrderCompleted">
+      <th mat-header-cell *matHeaderCellDef>Подтверждено отсутствие возврата товара?</th>
+      <td mat-cell *matCellDef="let element"><mat-icon>{{element.isOrderCompleted ? 'done' : 'clear'}}</mat-icon></td>
+    </ng-container>
+
+    <ng-container matColumnDef="confirmPayment">
+      <th mat-header-cell *matHeaderCellDef>Подтверждено ли получение средств системой?</th>
+      <td mat-cell *matCellDef="let element"><mat-icon>{{element.confirmPayment ? 'done' : 'clear'}}</mat-icon></td>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef>Покупатель</th>
+      <td mat-cell *matCellDef="let element">{{element.clientLastName + ' ' + element.clientFirstName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="shopPayment">
+      <th mat-header-cell *matHeaderCellDef>Внесенные средства для выплаты</th>
+      <td mat-cell *matCellDef="let element">{{element.shopPayment}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef class="update"></th>
+      <td mat-cell *matCellDef="let element" class="update cursor pointer">
+        <mat-icon (click)="updateBeauty(element)" class="cursor pointer">create</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+

@@ -1,0 +1,22 @@
+.mat-dialog-container {
+  position: relative;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.14), 0 3px 3px rgba(0, 0, 0, 0.12),
+  0 1px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.dialog__actions {
+  position: absolute;
+  top: 495px;
+  right: 17px;
+}
+
+.mat-form-field {
+  width: 328px;
+  height: 56px;
+}
+
+.mat-input-element, .mat-select {
+  padding: 2px 16px 5px 16px !important;
+}
+

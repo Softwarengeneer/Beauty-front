@@ -1,0 +1,126 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'node_modules/@angular/material/theming';
+@import 'assets/styles/colors';
+@import 'assets/styles/table';
+@import 'assets/styles/mat-dialog';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.vert-space-8{
+  margin-top: 8px;
+}
+.vert-space-16{
+  margin-top: 16px;
+}
+.vert-space-32{
+  margin-top: 32px;
+}
+.vert-space-56{
+  margin-top: 56px;
+}
+
+// типография
+@include mat-core();
+
+$normal-font-weight: 400;
+$font-family: "Roboto";
+
+$mat-custom-black: (
+  50:  #000,
+  100: #000,
+  200: #000,
+  300: #000,
+  400: #000,
+  500: #000,
+  600: #000,
+  700: #000,
+  800: #000,
+  900: #000,
+  A100: #000,
+  A200: #000,
+  A400: #000,
+  A700: #000,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$app-primary: mat-palette($mat-custom-black);
+$app-warn: mat-palette($mat-red, A400);
+
+$app-theme: mat-light-theme( $app-primary, $app-primary, $app-warn);
+
+@include angular-material-theme($app-theme);
+
+$typography: mat-typography-config(
+  $font-family: $font-family,
+    // .mat-body-1
+  $body-1: mat-typography-level(16px, 24px,$normal-font-weight, $font-family,0.5px),
+    // .mat-body-2
+  $body-2: mat-typography-level(14px, 20px,$normal-font-weight, $font-family,0.25px),
+    // .mat-caption
+  $caption: mat-typography-level(12px, 16px,$normal-font-weight, $font-family, 0.4px),
+);
+
+@include mat-core($typography);
+
+@mixin text-style($font-size, $line-height, $font-weight:$normal-font-weight
+,$letter-spacing : 0px, $text-transform:none) {
+  font-size: $font-size !important;
+  line-height: $line-height;
+  font-weight: $font-weight;
+  font-family: $font-family !important;
+  letter-spacing: $letter-spacing;
+  text-transform: $text-transform;
+}
+
+.headline-4 {
+  @include text-style(34px, 36px);
+}
+
+.headline-6 {
+  @include text-style(20px, 24px, 500, 0.15px);
+}
+
+.subtitle-1 {
+  @include text-style(16px, 24px,$normal-font-weight, 0.15px);
+}
+
+.subtitle-2 {
+  @include text-style(14px, 24px, 500, 0.1px);
+}
+
+.btn-text {
+  @include text-style(14px, 16px, 500, 1.25px, uppercase);
+}
+
+.overline {
+  @include text-style(10px, 16px, 500, 1.5px, uppercase);
+}
+
+.cursor.pointer {
+  cursor: pointer;
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+//.mat-table {
+//  overflow-y: scroll;
+//  height: 900px;
+//}
